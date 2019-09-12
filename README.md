@@ -12,7 +12,7 @@ something like this:
  2. `recipe_batches` ✔
  3. `eating_cookies` ✔
  4. `rock_paper_scissors` ✔
- 5. `making_change`
+ 5. `making_change` ✔ (Solution is sub-optimal - starts slowing around amount = 500)
  6. [Stretch Problem] `knapsack`
 
 For each problem, `cd` into the directory, read the instructions for the

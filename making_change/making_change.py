@@ -1,27 +1,37 @@
 #!/usr/bin/python
-
-
 import sys
 
-def making_change(amount, denominations, cache=None):
-    if not cache:
-        cache = [0 for i in range(amount + 1)]
-        cache[0] = 1
 
-    if amount < 0:
-        return "error - use a positive amount"
-    
-    if cache[amount] != 0:
-        return cache[amount]
+def making_change(amount, denominations, cache=None):
+    if amount == 0 or len(denominations) == 0:
+        return 1
     
     count = 0
-    for i in range(0, len(denominations), -1):
-        n = amount // denominations[i]
-            for i in range(0, n + 1, -1):
-                new_amount = amount - n * denominations[i]
+    coin = denominations[-1]
+    new_denom = denominations [:-1]
 
-        
-        
+    for i in reversed(range(0, (amount // coin) + 1)):
+        if amount - (coin * i) == 0:
+            count += 1
+        elif len(new_denom) > 0:
+            count += making_change(amount - coin * i, new_denom)
+    
+    return count
+
+# d = [1,5,10]
+# test = []
+# for i in range(1, 300):
+#     a = making_change(i, d) 
+#     b = making_change(i - 1, d)
+#     if a > b:
+#         test.append([i, a, a - b])
+# for i in range(0, len(test)):
+#     if i != 0:
+#         test[i].append(test[i][2] - test[i - 1][2])
+#     print(test[i])
+# for i in range(1, 100):
+#     print(i, "-", making_change(i, d))
+
 
 if __name__ == "__main__":
     # Test our your implementation from the command line

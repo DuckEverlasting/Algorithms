@@ -5,9 +5,38 @@ from collections import namedtuple
 
 Item = namedtuple('Item', ['index', 'size', 'value'])
 
-def knapsack_solver(items, capacity):
-  pass
-  
+def knapsack_solver(items, capacity, bag=None, cache=None):
+    if len(items) == 0:
+        return []
+    
+    if not bag:
+        bag = []
+    
+    for i in sorted_items (from best to worst):
+        if i is not in bag
+        and bag will not be full
+        and bag total will be better than best bag total:
+            add i to bag
+
+    RatioItem = namedtuple('RatioItem', ['index', 'size', 'value', 'ratio'])
+    with_ratio = []
+    for i in items:
+        with_ratio.append(RatioItem(i[0], i[1], i[2], i[2] / i[1]))
+    def return_ratio(el):
+        return el[3]
+    with_ratio.sort(key=return_ratio, reverse=True)
+    
+    
+    for i in with_ratio:
+        if i not in bag and 
+
+    get optimal items for each capacity
+
+    
+        
+
+    
+
 
 if __name__ == '__main__':
   if len(sys.argv) > 1:
