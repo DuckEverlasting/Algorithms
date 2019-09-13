@@ -14,6 +14,7 @@ import sys
 # 1, 1, 2, 4, 7, 13, 24, 44, 81, 149
 # seen that before
 
+
 def eating_cookies(n, cache=None):
     if not cache:
         cache = [0 for i in range(n + 1)]
@@ -26,16 +27,14 @@ def eating_cookies(n, cache=None):
 
     elif n == 2:
         return 2
-    
-    else:
-        cache[n - 3] = eating_cookies(n - 3, cache)
-        cache[n - 2] = eating_cookies(n - 2, cache)
-        cache[n - 1] = eating_cookies(n - 1, cache)
-        return cache[n - 3] + cache[n - 2] + cache[n - 1]
-        
 
-    
-    
+    else:
+        cache[n] = (
+            eating_cookies(n - 1, cache)
+            + eating_cookies(n - 2, cache)
+            + eating_cookies(n - 3, cache)
+        )
+        return cache[n]
 
 
 if __name__ == "__main__":

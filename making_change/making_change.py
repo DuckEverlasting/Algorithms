@@ -1,27 +1,29 @@
 #!/usr/bin/python
-
-
 import sys
 
-def making_change(amount, denominations, cache=None):
-    if not cache:
-        cache = [0 for i in range(amount + 1)]
-        cache[0] = 1
+# This assumes denominations are sorted, with the smallest denomination coming first.
+# It works without sorting, but is more efficient this way. (Still could probably be much more efficient though.)
+def making_change(amount, denominations):
+    if amount == 0 or len(denominations) == 0:
+        return 1
 
-    if amount < 0:
-        return "error - use a positive amount"
-    
-    if cache[amount] != 0:
-        return cache[amount]
-    
     count = 0
-    for i in range(0, len(denominations), -1):
-        n = amount // denominations[i]
-            for i in range(0, n + 1, -1):
-                new_amount = amount - n * denominations[i]
+    coin = denominations[-1]
+    new_denom = denominations [:-1]
 
-        
-        
+    if len(new_denom) == 0:
+        if amount % coin == 0:
+            count += 1
+
+    else:
+        for i in range(0, (amount // coin) + 1):
+            if amount - (coin * i) == 0:
+                count += 1
+            elif len(new_denom) > 0:
+                count += making_change(amount - coin * i, new_denom)
+
+    return count
+
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
