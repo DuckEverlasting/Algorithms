@@ -1,36 +1,31 @@
 #!/usr/bin/python
 import sys
 
-
 def making_change(amount, denominations, cache=None):
+    if not cache:
+        cache = {}
+
     if amount == 0 or len(denominations) == 0:
         return 1
     
-    count = 0
-    coin = denominations[-1]
-    new_denom = denominations [:-1]
+    if cache[f"{amount}_{denominations}"]:
+        print("DING")
+        return cache[f"{amount}_{denominations}"]
 
-    for i in reversed(range(0, (amount // coin) + 1)):
+    count = 0
+    coin = denominations[0]
+    new_denom = denominations [1:]
+
+    for i in range(0, (amount // coin) + 1):
         if amount - (coin * i) == 0:
             count += 1
         elif len(new_denom) > 0:
-            count += making_change(amount - coin * i, new_denom)
-    
+            count += making_change(amount - coin * i, new_denom, cache)
+            
+    cache[f"{amount}_{denominations}"] = count
     return count
 
-# d = [1,5,10]
-# test = []
-# for i in range(1, 300):
-#     a = making_change(i, d) 
-#     b = making_change(i - 1, d)
-#     if a > b:
-#         test.append([i, a, a - b])
-# for i in range(0, len(test)):
-#     if i != 0:
-#         test[i].append(test[i][2] - test[i - 1][2])
-#     print(test[i])
-# for i in range(1, 100):
-#     print(i, "-", making_change(i, d))
+print("[1, 5, 10, 25, 50]", making_change(61, [1, 5, 10, 25, 50]))
 
 
 if __name__ == "__main__":
